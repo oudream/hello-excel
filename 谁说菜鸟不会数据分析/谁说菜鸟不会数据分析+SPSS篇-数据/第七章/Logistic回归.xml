@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<PMML 
+	 version="4.1"
+	 xmlns="http://www.dmg.org/PMML-4_1"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://www.dmg.org/PMML-4_1 pmml-4-1.xsd">
+	<Header 
+		 copyright="Copyright (c) IBM Corp. 1989, 2013.">
+		<Application  name="IBM SPSS Statistics"  version="23.0.0.0" />
+	</Header>
+	<DataDictionary 
+		 numberOfFields="4">
+		<DataField 
+			 name="续约"
+			 displayName="是否已经续约"
+			 optype="categorical"
+			 dataType="double">
+			<Extension  extender="spss.com"  name="format"  value="5" />
+			<Extension  extender="spss.com"  name="width"  value="8" />
+			<Extension  extender="spss.com"  name="decimals"  value="0" />
+			<Value  value="0"  displayValue="未续约"  property="valid" />
+			<Value  value="1"  displayValue="续约"  property="valid" />
+		</DataField>
+		<DataField 
+			 name="注册时长"
+			 displayName="合作商户注册时长（月）"
+			 optype="continuous"
+			 dataType="double">
+			<Extension  extender="spss.com"  name="format"  value="5" />
+			<Extension  extender="spss.com"  name="width"  value="8" />
+			<Extension  extender="spss.com"  name="decimals"  value="0" />
+		</DataField>
+		<DataField 
+			 name="营业收入"
+			 displayName="营业收入（万元）"
+			 optype="continuous"
+			 dataType="double">
+			<Extension  extender="spss.com"  name="format"  value="5" />
+			<Extension  extender="spss.com"  name="width"  value="8" />
+			<Extension  extender="spss.com"  name="decimals"  value="0" />
+		</DataField>
+		<DataField 
+			 name="成本"
+			 displayName="经营成本（万元）"
+			 optype="continuous"
+			 dataType="double">
+			<Extension  extender="spss.com"  name="format"  value="5" />
+			<Extension  extender="spss.com"  name="width"  value="8" />
+			<Extension  extender="spss.com"  name="decimals"  value="0" />
+		</DataField>
+	</DataDictionary>
+	<GeneralRegressionModel 
+		 targetVariableName="续约"
+		 targetReferenceCategory="1"
+		 modelType="multinomialLogistic"
+		 algorithmName="x-contrastLogistic"
+		 functionName="classification">
+		<Extension  extender="spss.com"  name="numberParameters"  value="4" />
+		<Extension  extender="spss.com"  name="cutoff"  value="0.5" />
+		<MiningSchema >
+			<MiningField  name="续约"  usageType="predicted"  missingValueTreatment="asIs" />
+			<MiningField  name="注册时长"  usageType="active"  missingValueTreatment="asIs" />
+			<MiningField  name="营业收入"  usageType="active"  missingValueTreatment="asIs" />
+			<MiningField  name="成本"  usageType="active"  missingValueTreatment="asIs" />
+		</MiningSchema>
+		<ParameterList >
+			<Parameter  name="P0000001"  label="Constant" />
+			<Parameter  name="P0000002"  label="注册时长" />
+			<Parameter  name="P0000003"  label="营业收入" />
+			<Parameter  name="P0000004"  label="成本" />
+		</ParameterList>
+		<CovariateList >
+			<Predictor  name="注册时长" />
+			<Predictor  name="营业收入" />
+			<Predictor  name="成本" />
+		</CovariateList>
+		<PPMatrix >
+			<PPCell  value="1"  predictorName="注册时长"  parameterName="P0000002" />
+			<PPCell  value="1"  predictorName="营业收入"  parameterName="P0000003" />
+			<PPCell  value="1"  predictorName="成本"  parameterName="P0000004" />
+		</PPMatrix>
+		<ParamMatrix >
+			<PCell  targetCategory="1"  parameterName="P0000001"  beta="-2.28700359240436"  df="1" />
+			<PCell  targetCategory="1"  parameterName="P0000002"  beta="0.0989281561140672"  df="1" />
+			<PCell  targetCategory="1"  parameterName="P0000003"  beta="0.0142992145755121"  df="1" />
+			<PCell  targetCategory="1"  parameterName="P0000004"  beta="-0.18423449245986"  df="1" />
+		</ParamMatrix>
+	</GeneralRegressionModel>
+</PMML>
